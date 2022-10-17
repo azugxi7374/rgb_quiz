@@ -1,0 +1,21 @@
+body {
+    color: #222;
+    margin: 32px;
+    user-select: none;
+}
+
+.color-container {
+    display: flex;
+    align-items: center;
+}
+
+.color-box {
+    width: 100px;
+    height: 100px;
+    display: flex;
+}
+
+.color-value {
+    margin-left: 32px;
+    font-size: 16px;
+}
