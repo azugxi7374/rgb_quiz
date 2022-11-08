@@ -1,0 +1,59 @@
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        h3 {
+            border-bottom: #eee solid 1px;
+            color: #444;
+        }
+
+
+        .clrlist-link {
+            margin-top: 2em;
+        }
+
+        .clrlist {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .clrlist[data-visible=false] {
+            display: none;
+        }
+
+        .clrlist-item {
+            display: flex;
+            padding: 0.2em;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+        PCCSを当てるゲーム(仮)
+    </h3>
+    <div class="color-container">
+
+        <div class="color-box"></div>
+        <div class="color-value">
+            <p class="value-rgb"></p>
+            <p class="value-hex"></p>
+            <p class="value-rate"></p>
+        </div>
+    </div>
+    <div class="clrlist-link">
+        <a href="#">▼色リスト</a>
+    </div>
+    <div class="clrlist" data-visible="false">
+    </div>
+    <script>
+        var mode = "PCCS"
+    </script>
+    <script src="../pccsdata.js"></script>
+    <script src="../main.js"></script>
+</body>
+
+</html>
