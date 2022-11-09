@@ -1,0 +1,76 @@
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        h3 {
+            border-bottom: #eee solid 1px;
+            color: #444;
+        }
+
+        .filter {
+            margin-top: 1em;
+        }
+
+        .clrlist-link {
+            margin-top: 2em;
+        }
+
+        .clrlist {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .clrlist[data-visible=false] {
+            display: none;
+        }
+
+        .clrlist-item {
+            display: flex;
+            padding: 0.2em;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+        JIS慣用色を当てるゲーム(仮)
+    </h3>
+    <div class="color-container">
+
+        <div class="color-box"></div>
+        <div class="color-value">
+            <p class="value-rgb"></p>
+            <p class="value-hex"></p>
+            <p class="value-rate"></p>
+        </div>
+    </div>
+    <div></div>
+    <div class="filter">
+        <label>
+            <input id="check3" type="checkbox" checked>
+            色彩検定3級
+        </label>
+        <label>
+            <input id="check2" type="checkbox" checked>
+            2級
+        </label>
+    </div>
+    <div>
+        ※ 公式テキストとwikipediaより引用
+    </div>
+    <div class="clrlist-link">
+        <a href="#">▼色リスト</a>
+    </div>
+    <div class="clrlist" data-visible="false">
+    </div>
+    <script>
+        var mode = "JIS"
+    </script>
+    <script src="./jiscolor.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>
