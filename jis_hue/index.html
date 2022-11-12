@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        span.name {
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+    <input id="range" type="range" style="width:80vw;" min="0" max="360" value="0">
+    <div id="root"></div>
+    <script src="./jiscolor.js"></script>
+    <script>
+        window.hueList = "RP R YR Y GY G BG B PB P".split(" ")
+        document.addEventListener('DOMContentLoaded', () => {
+            const root = document.getElementById("root");
+
+            const jclist = []
+            for (const jc of jiscolor) {
+                if (jc[0] || jc[1]) {
+                    const [code, name, mun] = [2, 5, 6].map(i => jc[i]);
+                    const hue = mun.match(/^[\d.]*[A-Z]+/)[0]
+                    const hueG = hue.match(/[A-Z]+$/)[0]
+                    const hueNum = Number(hue === "N" ? 0 : hue.match(/^[\d.]+/)[0]);
+                    const hue360 = hue === "N" ? 360 : hueList.indexOf(hueG) * 36 + hueNum / 11 * 36;
+                    const value = Number(hue === "N" ? mun.match(/[\d.]+/)[0] : mun.match(/\s([\d.]+)\//)[1])
+                    const chroma = Number(hue === "N" ? 0 : mun.match(/[\d.]+$/)[0])
+                    const html = `<div class="list"><span style="color:${code};">■</span><span class="name">${name} ${mun}<span></div>`
+                    jclist.push({
+                        code, name, mun, hue, hueNum, hueG, hue360, value, chroma, html
+                    });
+                }
+            }
+            window.jclist = jclist;
+            document.getElementById('range').addEventListener('input', (e) => {
+                const v = e.target.value;
+                render2d(jclist.filter(filterHue(v, 6)));
+            });
+            render2d(jclist.filter(filterHue(0, 9)));
+        });
+
+        function render(list) {
+            root.innerHTML = "";
+            list.forEach(({ html }) => root.innerHTML += html)
+        }
+        function render2d(list) {
+            root.innerHTML = "";
+            for (const { html, chroma, value } of list) {
+                let h = `<div style="position:absolute; top: ${100 - (value * 10)}vh; left:${chroma / 15 * 90}vw;">${html}</div>`
+                root.innerHTML += h;
+            }
+        }
+        function compareHue(a, b) {
+            /*
+            const hg = hueList.indexOf(a.hueG) - hueList.indexOf(b.hueG);
+            const hn = a.hueNum - b.hueNum;
+            return hg * 10 + hn;
+            */
+            return a.hue360 - b.hue360;
+        }
+        function compareHueG(a, b) {
+            const hg = hueList.indexOf(a.hueG) - hueList.indexOf(b.hueG);
+            return hg;
+        }
+        function compareChroma(a, b) {
+            return a.chroma - b.chroma;
+        }
+        function compareValue(a, b) {
+            return a.value - b.value;
+        }
+        function filterHue(h, range) {
+            return a => Math.abs(a.hue360 - h) < range;
+        }
+    </script>
+</body>
+
+
+</html>
